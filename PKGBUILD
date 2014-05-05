@@ -30,7 +30,6 @@ build() {
 
 package() {
   cd "$srcdir/raspicomm-module-$pkgver"
-
-  # copy the kernel module
+  # install the kernel module
   install -D raspicommrs485.ko ${pkgdir}/lib/modules/$(uname -r)/${pkgname}.ko
 }
