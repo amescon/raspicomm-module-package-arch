@@ -12,13 +12,17 @@ function unload_module() {
 post_install() {
 
   # update modprobe dependency list
-  depmod -a
+  depmod /lib/modules/$(uname -r)/raspicommrs485.ko
 
-  # load the module
-  modprobe raspicommrs485
-
-  # create autoload entry for module
-  echo raspicommrs485 >> /etc/modules-load.d/raspicommrs485.conf
+  # inform the user that the kernel module was installed
+  echo "installed kernel module 'raspicommrs485'"
+  echo ""
+  echo "consider creating a file '/etc/modules-load.d/raspicommrs485.conf'"
+  echo "with the content 'raspicommrs485' which will load the module on startup"
+  echo "e.g. by executing 'echo raspicommrs485 >> /etc/modules-load.d/raspicommrs485.conf'"
+  echo ""
+  echo "you can now load the module using 'modprobe raspicommrs485'"
+  echo ""
 }
 
 pre_remove() {
@@ -32,6 +36,9 @@ post_remove() {
   # update modprobe dependency list
   depmod -a
 
-  # remove kernel module from loading at startup
-  rm /etc/modules-load.d/raspicommrs485.conf
+  # inform the user that the startup file is obsolete now
+  if [[ -e "/etc/modules-load.d/raspicommrs485.conf" ]]; then
+    echo "consider removing the configuration file /etc/modules-load.d/raspicommrs485.conf"
+    echo ""
+  fi
 }
