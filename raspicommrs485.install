@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# unload the supplied module if it's currently loaded
+function unload_module() {
+  local s=`lsmod | grep ${1}`
+  if [ "$s" != "" ]; then
+    echo "unloading module $1"
+    rmmod ${1}
+  fi
+}
+
+post_install() {
+
+  # update modprobe dependency list
+  depmod -a
+
+  # load the module
+  modprobe raspicommrs485
+
+  # create autoload entry for module
+  echo raspicommrs485 >> /etc/modules-load.d/raspicommrs485.conf
+}
+
+pre_remove() {
+
+  # unload the module
+  unload_module raspicommrs485;
+}
+
+post_remove() {
+
+  # update modprobe dependency list
+  depmod -a
+
+  # remove kernel module from loading at startup
+  rm /etc/modules-load.d/raspicommrs485.conf
+}
