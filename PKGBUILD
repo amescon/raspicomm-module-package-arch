@@ -18,13 +18,11 @@ options=()
 install=${pkgname}.install
 changelog=
 source=("http://github.com/amescon/raspicomm-module/archive/v$pkgver.tar.gz")
-#source=("raspicomm-module-$pkgver.tar.gz")
 noextract=()
 sha256sum=() #autofill using updpkgsums
 
 build() {
   # unpack the source and compile the kernel module
-  # tar -xf raspicomm-module-$pkgver.tar.gz
   tar -xf v$pkgver.tar.gz
   cd "$srcdir/raspicomm-module-$pkgver/"
   make -f Makefile_rpi
