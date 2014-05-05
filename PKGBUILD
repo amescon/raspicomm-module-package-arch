@@ -1,10 +1,10 @@
 # Maintainer: Martin, e-mail: mdk at amescon dot com
 pkgname=raspicommrs485
 pkgver=1.4
-pkgrel=1
+pkgrel=2
 pkgdesc="raspicomm rs485 driver /dev/ttyRPC0"
 arch=('armv6h')
-url="http://github.com/amescon/raspicomm-module-arch"
+url="http://github.com/amescon/raspicomm-module-package-arch"
 license=('GPL')
 groups=()
 depends=()
